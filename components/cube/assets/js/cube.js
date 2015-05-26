@@ -62,7 +62,7 @@ $(function() {
             $(document).on('keypress', function(e) {
                 // The spacebar should scramble the cube if it isn't
                 // already scrambled
-                if (e.keyCode == 32 && !self.is_scrambled) {
+                if (e.keyCode == 32 && !self.is_scrambled && !$('.sweet-alert').is(':visible')) {
                     self.scramble();
                     return;
                 }
@@ -221,26 +221,25 @@ $(function() {
             if (this.queue.length == 0 && !this.is_turning) {
                 var i = 0,
                     previous = false,
-                    faces = ['U', 'L', 'F', 'R', 'B', 'D', 'M', 'E', 'X', 'Y'];
+                    turns = ['U', 'L', 'F', 'R', 'B', 'D', 'M', 'E', 'S', 'X', 'Y', 'Z'];
 
                 while (i < this.scramble_depth) {
-                    var face        = faces[Math.floor(Math.random()*faces.length)],
+                    var turn        = turns[Math.floor(Math.random()*turns.length)],
                         direction   = Math.random() < .5;
 
-                    if (!previous || previous != face) {
-                        var turn = direction ? face : face + '!';
+                    if (!previous || previous != turn) {
 
                         // Add the turn to the que
-                        this.queue.push(turn);
+                        this.queue.push(direction ? turn : turn + '!');
+                        previous = turn;
 
-                        // Keep track of the face we just turned
-                        previous = face;
-                        if (face != 'X' && face != 'Y') {
-                            i++;
-                        }
+                        // If this was an actual turn and not just a cube
+                        // rotation, increment the counter.
+                        if (turn != 'X' && turn != 'Y' && turn != 'Z') i++;
                     }
                 }
 
+                // Start the clock one the scramble is complete.
                 this.queue.push('CLOCK');
 
                 // Start executing the scramble
@@ -250,11 +249,10 @@ $(function() {
             }
         },
 
-        // Grab the transition from our stickers and move them to
-        // an inline style. This way, we won't have to deal with
-        // converting 3D transforms to and from a matrix value.
-        resetCube: function()
-        {
+        /**
+         * Reset the cube to it's original state
+         */
+        resetCube: function() {
             this.$stickers.each(function() {
                 $(this).removeAttr('style')
                     .data('origin', $(this).css('font-family')
@@ -269,8 +267,7 @@ $(function() {
         /**
          * Fired when the cube is solved
          */
-        solved: function()
-        {
+        solved: function() {
             // Stop the clock and calculate the solve time
             var solve_time = ((new Date).getTime() - this.start_time) / 1000;
 
