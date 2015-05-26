@@ -1,0 +1,19 @@
+{% spaceless %}
+    <div id="cube">
+        <div class="inner">
+            {% for face, stickers in __SELF__.faces %}
+                {% for position, sticker in stickers %}
+                    <div data-face="{{ face }}" data-position="{{ position + 1 }}" data-sticker="{{ sticker }}"{% if position == 4 %} data-center="{{ sticker }}"{% endif %}></div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <button id="scramble" class="waves-effect waves-light btn-large grey darken-4">Click To Scramble</button>
+    <p class="center">or press the spacebar</p>
+
+    <div id="scoreboard">
+        {% partial __SELF__ ~ '::scoreboard' %}
+    </div>
+{% endspaceless %}
+

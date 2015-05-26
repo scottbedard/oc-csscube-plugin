@@ -1,0 +1,8 @@
+<div class="row">
+    The cube has been solved <span class="solves">{{ __SELF__.solved|number_format(0, false, ',') }}</span> times.
+</div>
+{% if __SELF__.record %}
+    <div class="row">
+        The fastest solve was <span class="record">{{ __SELF__.record.time|number_format(2, '.') }}</span> seconds, set {{ __SELF__.record.timeSince }}.
+    </div>
+{% endif %}

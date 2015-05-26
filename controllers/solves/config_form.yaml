@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Solve
+
+# Model Form Field configuration
+form: $/bedard/cube/models/solve/fields.yaml
+
+# Model Class name
+modelClass: Bedard\Cube\Models\Solve
+
+# Default redirect location
+defaultRedirect: bedard/cube/solves
+
+# Create page
+create:
+    title: Create Solve
+    redirect: bedard/cube/solves/update/:id
+    redirectClose: bedard/cube/solves
+
+# Update page
+update:
+    title: Edit Solve
+    redirect: bedard/cube/solves
+    redirectClose: bedard/cube/solves
+
+# Preview page
+preview:
+    title: Preview Solve

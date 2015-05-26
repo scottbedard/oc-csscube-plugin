@@ -1,0 +1,216 @@
+/**
+ * CSS Cube
+ * (c) Scott Bedard, http://scottbedard.net
+ */
+
+// $cube_size: 180px;          // Controls the overall size of the cube
+// $cube_margin_top: 180px;    // Margins the top of the cube container
+// $cube_spacing: 16px;        // Explodes the sides of the cube out from their normal position
+// $cube_perspective: 1500px;  // Controls the 3D perspective of the cube
+// $cube_rotation: -25deg;     // Tilts the cube along the X axis to make other sides more visible
+// $cube_speed: 0.07s;         // Defines the transition duration
+// $cube_timing: linear;       // Defines the transition timing function
+
+// $sticker_padding: 10px;
+$sticker_radius: 4px;
+$sticker_opacity: 1;
+$sticker_border: 1px solid #333;
+$sticker_opacity: 1;
+$sticker_colors: (
+    U: #F8FF01,
+    L: #FF9E01,
+    F: #3366FF,
+    R: #CC3300,
+    B: #95B753,
+    D: #FAFAFA,
+);
+
+$cube_size: 155px;          // Controls the overall size of the cube
+$cube_margin_top: $cube_size;    // Margins the top of the cube container
+$cube_spacing: 9px;        // Explodes the sides of the cube out from their normal position
+$cube_perspective: 800px;  // Controls the 3D perspective of the cube
+$cube_rotation: -25deg;     // Tilts the cube along the X axis to make other sides more visible
+$cube_speed: 0.07s;         // Defines the transition duration
+$cube_timing: linear;       // Defines the transition timing function
+$sticker_padding: 5px;
+
+$sticker_depth: ($cube_size / 2) + $cube_spacing;
+$sticker_size: $cube_size / 3;
+$sticker: $sticker_size + $sticker_padding;
+
+//
+// Cube
+//
+#cube {
+
+    // Put our cube in the middle of the screen, and
+    // set up the perspective.
+    position: absolute;
+    left: 50%;
+    top: $cube_margin_top;
+    transform: translateX(-50%);
+    perspective: $cube_perspective;
+
+    // This inner container exists to help our stickers
+    // absolutely position themselves relative to the cube.
+    .inner {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        transform-origin:50% 50%;
+        transform-style: preserve-3d;
+        transform: rotateX($cube_rotation);
+    }
+}
+
+#scramble {
+    display: block;
+    margin: 0 auto;
+    margin-top: $cube_margin_top + $cube_size;
+    opacity: 3;
+    transform: opacity 1s;
+
+    &:disabled {
+        opacity: 0.4;
+    }
+}
+
+#scoreboard {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+
+    .solves {
+        font-size: 26px;
+        font-weight: bold;
+        color: #95B753;
+    }
+
+    .record {
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+//
+// Stickers
+//
+#cube > .inner > div {
+    border: $sticker_border;
+    border-radius: $sticker_radius;
+    height: $sticker_size;
+    left: calc(50% - #{$sticker_size / 2});
+    position: absolute;
+    top: calc(50% - #{$sticker_size / 2});
+    opacity: $sticker_opacity;
+    width: $sticker_size;
+    transition: transform $cube_speed $cube_timing;
+
+    $rotations: (
+        U: rotateX(90deg) rotateY(0) rotateZ(0),
+        L: rotateY(-90deg) rotateX(0) rotateZ(0),
+        F: rotateX(0) rotateY(0) rotateZ(0),
+        R: rotateY(90deg) rotateX(0) rotateZ(0),
+        B: rotateY(180deg) rotateX(0) rotateZ(0),
+        D: rotateX(-90deg) rotateY(0) rotateZ(0)
+    );
+
+    $translations: (
+        translate3d(-$sticker, -$sticker, $sticker_depth),
+        translate3d(0, -$sticker, $sticker_depth),
+        translate3d($sticker, -$sticker, $sticker_depth),
+        translate3d(-$sticker, 0, $sticker_depth),
+        translate3d(0, 0, $sticker_depth),
+        translate3d($sticker, 0, $sticker_depth),
+        translate3d(-$sticker, $sticker, $sticker_depth),
+        translate3d(0, $sticker, $sticker_depth),
+        translate3d($sticker, $sticker, $sticker_depth)
+    );
+
+    @each $face, $rotation in $rotations {
+        @for $position from 1 through 9 {
+            &[data-face="#{$face}"][data-position="#{$position}"] {
+                background-color: map-get($sticker_colors, $face);
+                transform: $rotation nth($translations, $position);
+
+                // This work-around allows us to pass our transform data directly
+                // to jQuery, without the head ache of trying to parse matrix values.
+                font-family: "#{$rotation} #{nth($translations, $position)}";
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    $cube_size: 210px;
+    $cube_margin_top: $cube_size;
+    $cube_spacing: 15px;
+    $cube_perspective: 1500px;
+    $cube_rotation: -25deg;
+    $sticker_padding: 8px;
+
+    $sticker_depth: ($cube_size / 2) + $cube_spacing;
+    $sticker_size: $cube_size / 3;
+    $sticker: $sticker_size + $sticker_padding;
+
+    //
+    // Cube
+    //
+    #cube {
+        top: $cube_margin_top;
+        perspective: $cube_perspective;
+        .inner {
+            transform: rotateX($cube_rotation);
+        }
+    }
+
+    #scramble {
+        margin-top: $cube_margin_top + $cube_size;
+    }
+
+    #cube > .inner > div {
+        border: $sticker_border;
+        border-radius: $sticker_radius;
+        height: $sticker_size;
+        left: calc(50% - #{$sticker_size / 2});
+        top: calc(50% - #{$sticker_size / 2});
+        opacity: $sticker_opacity;
+        width: $sticker_size;
+        transition: transform $cube_speed $cube_timing;
+
+        $rotations: (
+            U: rotateX(90deg) rotateY(0) rotateZ(0),
+            L: rotateY(-90deg) rotateX(0) rotateZ(0),
+            F: rotateX(0) rotateY(0) rotateZ(0),
+            R: rotateY(90deg) rotateX(0) rotateZ(0),
+            B: rotateY(180deg) rotateX(0) rotateZ(0),
+            D: rotateX(-90deg) rotateY(0) rotateZ(0)
+        );
+
+        $translations: (
+            translate3d(-$sticker, -$sticker, $sticker_depth),
+            translate3d(0, -$sticker, $sticker_depth),
+            translate3d($sticker, -$sticker, $sticker_depth),
+            translate3d(-$sticker, 0, $sticker_depth),
+            translate3d(0, 0, $sticker_depth),
+            translate3d($sticker, 0, $sticker_depth),
+            translate3d(-$sticker, $sticker, $sticker_depth),
+            translate3d(0, $sticker, $sticker_depth),
+            translate3d($sticker, $sticker, $sticker_depth)
+        );
+
+        @each $face, $rotation in $rotations {
+            @for $position from 1 through 9 {
+                &[data-face="#{$face}"][data-position="#{$position}"] {
+                    background-color: map-get($sticker_colors, $face);
+                    transform: $rotation nth($translations, $position);
+
+                    // This work-around allows us to pass our transform data directly
+                    // to jQuery, without the head ache of trying to parse matrix values.
+                    font-family: "#{$rotation} #{nth($translations, $position)}";
+                }
+            }
+        }
+    }
+}
