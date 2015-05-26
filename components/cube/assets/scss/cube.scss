@@ -2,16 +2,6 @@
  * CSS Cube
  * (c) Scott Bedard, http://scottbedard.net
  */
-
-// $cube_size: 180px;          // Controls the overall size of the cube
-// $cube_margin_top: 180px;    // Margins the top of the cube container
-// $cube_spacing: 16px;        // Explodes the sides of the cube out from their normal position
-// $cube_perspective: 1500px;  // Controls the 3D perspective of the cube
-// $cube_rotation: -25deg;     // Tilts the cube along the X axis to make other sides more visible
-// $cube_speed: 0.07s;         // Defines the transition duration
-// $cube_timing: linear;       // Defines the transition timing function
-
-// $sticker_padding: 10px;
 $sticker_radius: 4px;
 $sticker_opacity: 1;
 $sticker_border: 1px solid #333;
@@ -25,14 +15,14 @@ $sticker_colors: (
     D: #FAFAFA,
 );
 
-$cube_size: 155px;          // Controls the overall size of the cube
+$cube_size: 180px;          // Controls the overall size of the cube
 $cube_margin_top: $cube_size;    // Margins the top of the cube container
-$cube_spacing: 9px;        // Explodes the sides of the cube out from their normal position
+$cube_spacing: 11px;        // Explodes the sides of the cube out from their normal position
 $cube_perspective: 800px;  // Controls the 3D perspective of the cube
 $cube_rotation: -25deg;     // Tilts the cube along the X axis to make other sides more visible
 $cube_speed: 0.07s;         // Defines the transition duration
 $cube_timing: linear;       // Defines the transition timing function
-$sticker_padding: 5px;
+$sticker_padding: 6px;
 
 $sticker_depth: ($cube_size / 2) + $cube_spacing;
 $sticker_size: $cube_size / 3;

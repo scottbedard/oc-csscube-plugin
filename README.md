@@ -1,8 +1,10 @@
 # CSS Cube
 
-<a href="http://scottbedard.net/cube" style="display: block; text-align: center; padding: 10px 0">
-    <img src="http://scottbedard.net/storage/app/media/cube.jpg">
-</a>
+<div style="text-align: center; padding: 10px 0">
+    <a href="http://scottbedard.net/cube">
+        <img src="http://scottbedard.net/storage/app/media/cube.jpg">
+    </a>
+</div>
 
 This plugin was mostly just an excuse to experiment with 3D transforms and javascript, there are definitely more practical ways to make this kind of thing. But it was a fun project, and I hope you find it interesting.
 

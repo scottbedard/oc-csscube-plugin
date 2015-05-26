@@ -5,7 +5,7 @@
 #cube {
   position: absolute;
   left: 50%;
-  top: 155px;
+  top: 180px;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -28,7 +28,7 @@
 #scramble {
   display: block;
   margin: 0 auto;
-  margin-top: 310px;
+  margin-top: 360px;
   opacity: 3;
   -webkit-transform: opacity 1s;
       -ms-transform: opacity 1s;
@@ -56,338 +56,338 @@
 #cube > .inner > div {
   border: 1px solid #333;
   border-radius: 4px;
-  height: 51.66667px;
-  left: calc(50% - 25.83333px);
+  height: 60px;
+  left: calc(50% - 30px);
   position: absolute;
-  top: calc(50% - 25.83333px);
+  top: calc(50% - 30px);
   opacity: 1;
-  width: 51.66667px;
+  width: 60px;
   -webkit-transition: -webkit-transform 0.07s linear;
           transition: transform 0.07s linear;
 }
 #cube > .inner > div[data-face="U"][data-position="1"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="2"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="3"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="4"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="5"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="6"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="7"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="8"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="U"][data-position="9"] {
   background-color: #F8FF01;
-  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateX(90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="1"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="2"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="3"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="4"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="5"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="6"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="7"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="8"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="L"][data-position="9"] {
   background-color: #FF9E01;
-  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateY(-90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="1"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="2"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="3"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="4"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="5"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="6"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="7"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="8"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="F"][data-position="9"] {
   background-color: #3366FF;
-  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateX(0) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="1"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="2"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="3"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="4"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="5"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="6"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="7"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="8"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="R"][data-position="9"] {
   background-color: #CC3300;
-  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateY(90deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="1"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="2"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="3"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="4"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="5"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="6"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="7"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="8"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="B"][data-position="9"] {
   background-color: #95B753;
-  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateY(180deg) rotateX(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="1"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="2"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, -66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="3"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, -56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, -66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="4"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="5"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 0, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="6"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 0, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 0, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="7"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(-66px, 66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="8"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(0, 66px, 101px)";
 }
 #cube > .inner > div[data-face="D"][data-position="9"] {
   background-color: #FAFAFA;
-  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px);
-  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(56.66667px, 56.66667px, 86.5px)";
+  -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+          transform: rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px);
+  font-family: "rotateX(-90deg) rotateY(0) rotateZ(0) translate3d(66px, 66px, 101px)";
 }
 
 @media (min-width: 768px) {
