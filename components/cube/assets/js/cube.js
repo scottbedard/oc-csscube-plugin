@@ -1,3 +1,7 @@
+/**
+ * CSS Cube
+ * (c) Scott Bedard, http://scottbedard.net/cube
+ */
 $(function() {
 
     var Cube = {
@@ -48,28 +52,30 @@ $(function() {
         start_time: 0,
 
         /**
-         * Load the stickers and keep track of their original position.
+         * Load the stickers, and set up event handlers.
          */
         init: function() {
             var self = this;
 
-            this.$stickers.each(function() {
-                var origin = $(this)
-                    .css('font-family')
-                    .slice(1, -1);
+            this.resetCube();
 
-                $(this)
-                    .data('origin', origin)
-                    .data('color', $(this).css('background-color'));
-            });
-
-            $(document).keypress(function(e) {
+            $(document).on('keypress', function(e) {
+                // The spacebar should scramble the cube if it isn't
+                // already scrambled
                 if (e.keyCode == 32 && !self.is_scrambled) {
                     self.scramble();
                     return;
                 }
 
+                // Otherwise, route the key to the keypress handler
                 self.handleKeypress(e);
+            }).on('keyup', function(e) {
+                // If the cube is scrambled, the escape key should
+                // reset it to the solved state.
+                if (e.keyCode == 27 && self.is_scrambled) {
+                    self.resetCube();
+                    return;
+                }
             });
 
             this.$cube.find('div[data-face="F"], div[data-face="U"]').swipe({
@@ -80,8 +86,7 @@ $(function() {
 
             this.$scramble.on('click', function() {
                 self.scramble();
-            })
-
+            });
         },
 
         /**
@@ -90,20 +95,22 @@ $(function() {
         is_solved: function() {
             if (this.queue.length > 0) return false;
 
-            var is_solved = true,
-                faces = this.findAllFaces();
+            var self = this,
+                is_solved = true;
 
-            this.$centers.each(function() {
-                var $faces = faces[$(this).data('center')],
-                    color = $faces.first().data('color');
+            // Check that each faces stickers are the same color
+            $.each(['U', 'L', 'F', 'R', 'B', 'D'], function(index, face) {
+                var $face = self.findStickers(face),
+                    color = $face.first().data('color');
 
-                $faces.each(function() {
+                $face.each(function() {
                     if ($(this).data('color') != color) {
                         is_solved = false;
                         return false;
                     }
-                    if (!is_solved) return false;
                 });
+
+                if (!is_solved) return false;
             });
 
             this.is_scrambled = !is_solved;
@@ -243,6 +250,22 @@ $(function() {
             }
         },
 
+        // Grab the transition from our stickers and move them to
+        // an inline style. This way, we won't have to deal with
+        // converting 3D transforms to and from a matrix value.
+        resetCube: function()
+        {
+            this.$stickers.each(function() {
+                $(this).removeAttr('style')
+                    .data('origin', $(this).css('font-family')
+                    .slice(1, -1))
+                    .data('color', $(this).css('background-color'));
+            });
+
+            this.is_scrambled = false;
+            this.queue = [];
+        },
+
         /**
          * Fired when the cube is solved
          */
@@ -314,20 +337,6 @@ $(function() {
         },
 
         /**
-         * Return all sticks on all faces
-         */
-        findAllFaces: function() {
-            return {
-                U: this.findStickers('U'),
-                L: this.findStickers('L'),
-                F: this.findStickers('F'),
-                R: this.findStickers('R'),
-                B: this.findStickers('B'),
-                D: this.findStickers('D'),
-            }
-        },
-
-        /**
          * Finds stickers by an array of sticker IDs
          *
          * @param   array|string    The stickers being selected
@@ -346,13 +355,14 @@ $(function() {
         /**
          * Turns a collection of stickers around an axis
          *
-         * @param               Collection of sticker divs being rotated
-         * @param   string      Axis to rotate the stickers around
-         * @param   integer     Transform rotation value
+         * @param   string|array    The stickers being turned
+         * @param   string          Axis to rotate the stickers around
+         * @param   integer         Transform rotation value
          */
-        executeTurn: function($stickers, axis, rotation) {
+        executeTurn: function(stickers, axis, rotation) {
             var expression  = new RegExp('rotate' + axis + '\\((-)?[0-9]+(deg)?\\)'),
-                destination = 'rotate' + axis + '(' + rotation + 'deg)';
+                destination = 'rotate' + axis + '(' + rotation + 'deg)',
+                $stickers   = this.findStickers(stickers);
 
             $stickers.css('transition', '').each(function() {
                 $(this).css('transform', $(this).data('origin').replace(expression, destination));
@@ -362,11 +372,10 @@ $(function() {
         /**
          * Update sticker colors
          *
-         * @param   string      Determines which center to bind callback to
-         * @param   object      Map of sticker sources and targets
          * @param   boolean     Determines how to read the map
+         * @param   object      Map of sticker sources and targets
          */
-        updateStickers: function(face, map, is_clockwise) {
+        updateStickers: function(is_clockwise, map) {
             var self = this;
 
             // If we're updating for a counter-clockwise turn, invert the map
@@ -389,8 +398,11 @@ $(function() {
             }
             $stickers = this.findStickers(selectors);
 
+            // Grab a sticker to use as our callback listener
+            for (callback in map) break;
+
             // Bind a callback to the center sticker
-            this.$cube.find('div[data-sticker="' + face + '"]').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+            this.$cube.find('div[data-sticker="' + callback + '"]').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
                 $(this).off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
 
                 // Re-paint all of the stickers with their new color
@@ -420,305 +432,229 @@ $(function() {
          *
          * @param   boolean     Determines which direction to turn the face
          */
-        turnU: function(direction) {
-            // Select the stickers being effected by this turn
-            var $U = this.findStickers('U'),
-                $L = this.findStickers(['LBU', 'LU', 'LUF']),
-                $F = this.findStickers(['FLU', 'FU', 'FUR']),
-                $R = this.findStickers(['RFU', 'RU', 'RUB']),
-                $B = this.findStickers(['BRU', 'BU', 'BUL']),
-
-                // These maps are used to track the movement of stickers. Once
-                // a sticker is transitioned, it is reset and will assume the color
-                // of the sticker that is taking it's place. By default, this map
-                // contains the updates for a clockwise turn. If the turn  is
-                // counter clockwise, we'll simply read the map backwards.
-                map = {
-                    'U': 'U',
-                    'UB': 'UR', 'UR': 'UF', 'UF': 'UL', 'UL': 'UB',
-                    'BU': 'RU', 'RU': 'FU', 'FU': 'LU', 'LU': 'BU',
-                    'ULB': 'UBR', 'UBR': 'URF', 'URF': 'UFL', 'UFL': 'ULB',
-                    'BUL': 'RUB', 'RUB': 'FUR', 'FUR': 'LUF', 'LUF': 'BUL',
-                    'BRU': 'RFU', 'RFU': 'FLU', 'FLU': 'LBU', 'LBU': 'BRU',
-                };
-
+        turnU: function(is_clockwise) {
             // Tell the CSS transitions to do their thing
-            this.executeTurn($U, 'Z', direction ? 90 : -90);
-            this.executeTurn($L, 'Y', direction ? -180 : 0);
-            this.executeTurn($F, 'Y', direction ? -90 : 90);
-            this.executeTurn($R, 'Y', direction ? 0 : 180);
-            this.executeTurn($B, 'Y', direction ? 90 : 270);
+            this.executeTurn('U', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['LBU', 'LU', 'LUF'], 'Y', is_clockwise ? -180 : 0);
+            this.executeTurn(['FLU', 'FU', 'FUR'], 'Y', is_clockwise ? -90 : 90);
+            this.executeTurn(['RFU', 'RU', 'RUB'], 'Y', is_clockwise ? 0 : 180);
+            this.executeTurn(['BRU', 'BU', 'BUL'], 'Y', is_clockwise ? 90 : 270);
 
-            // Update the sticker colors
-            this.updateStickers('U', map, direction);
+            // These maps are used to track the movement of stickers. Once
+            // a sticker is transitioned, it is reset and will assume the color
+            // of the sticker that is taking it's place. By default, this map
+            // contains the updates for a clockwise turn. If the turn  is
+            // counter clockwise, we'll simply read the map backwards.
+            this.updateStickers(is_clockwise, {
+                'U': 'U',
+                'UB': 'UR', 'UR': 'UF', 'UF': 'UL', 'UL': 'UB',
+                'BU': 'RU', 'RU': 'FU', 'FU': 'LU', 'LU': 'BU',
+                'ULB': 'UBR', 'UBR': 'URF', 'URF': 'UFL', 'UFL': 'ULB',
+                'BUL': 'RUB', 'RUB': 'FUR', 'FUR': 'LUF', 'LUF': 'BUL',
+                'BRU': 'RFU', 'RFU': 'FLU', 'FLU': 'LBU', 'LBU': 'BRU',
+            });
         },
 
-        turnL: function(direction) {
-            var $L = this.findStickers('L'),
-                $U = this.findStickers(['ULB','UL','UFL']),
-                $F = this.findStickers(['FLU','FL','FDL']),
-                $D = this.findStickers(['DLF','DL','DBL']),
-                $B = this.findStickers(['BLD','BL','BUL']),
-                map = {
-                    'L': 'L',
-                    'LU': 'LF', 'LF': 'LD', 'LD': 'LB', 'LB': 'LU',
-                    'UL': 'FL', 'FL': 'DL', 'DL': 'BL', 'BL': 'UL',
-                    'LBU': 'LUF', 'LUF': 'LFD', 'LFD': 'LDB', 'LDB': 'LBU',
-                    'UFL': 'FDL', 'FDL': 'DBL', 'DBL': 'BUL', 'BUL': 'UFL',
-                    'ULB': 'FLU', 'FLU': 'DLF', 'DLF': 'BLD', 'BLD': 'ULB',
-                };
+        turnL: function(is_clockwise) {
+            this.executeTurn('L', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['ULB','UL','UFL'], 'X', is_clockwise ? 0 : 180);
+            this.executeTurn(['FLU','FL','FDL'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['DLF','DL','DBL'], 'X', is_clockwise ? -180 : 0);
+            this.executeTurn(['BLD','BL','BUL'], 'X', is_clockwise ? 90 : -90);
 
-            this.executeTurn($L, 'Z', direction ? 90 : -90);
-            this.executeTurn($U, 'X', direction ? 0 : 180);
-            this.executeTurn($F, 'X', direction ? -90 : 90);
-            this.executeTurn($D, 'X', direction ? -180 : 0);
-            this.executeTurn($B, 'X', direction ? 90 : -90);
-
-            this.updateStickers('L', map, direction);
+            this.updateStickers(is_clockwise, {
+                'L': 'L',
+                'LU': 'LF', 'LF': 'LD', 'LD': 'LB', 'LB': 'LU',
+                'UL': 'FL', 'FL': 'DL', 'DL': 'BL', 'BL': 'UL',
+                'LBU': 'LUF', 'LUF': 'LFD', 'LFD': 'LDB', 'LDB': 'LBU',
+                'UFL': 'FDL', 'FDL': 'DBL', 'DBL': 'BUL', 'BUL': 'UFL',
+                'ULB': 'FLU', 'FLU': 'DLF', 'DLF': 'BLD', 'BLD': 'ULB',
+            });
         },
 
-        turnF: function(direction) {
-            var $F = this.findStickers('F'),
-                $U = this.findStickers(['UFL','UF','URF']),
-                $R = this.findStickers(['RFU','RF','RDF']),
-                $D = this.findStickers(['DFR','DF','DLF']),
-                $L = this.findStickers(['LFD','LF','LUF']),
-                map = {
-                    'F': 'F',
-                    'FU': 'FR', 'FR': 'FD', 'FD': 'FL', 'FL': 'FU',
-                    'UF': 'RF', 'RF': 'DF', 'DF': 'LF', 'LF': 'UF',
-                    'FLU': 'FUR', 'FUR': 'FRD', 'FRD': 'FDL', 'FDL': 'FLU',
-                    'UFL': 'RFU', 'RFU': 'DFR', 'DFR': 'LFD', 'LFD': 'UFL',
-                    'URF': 'RDF', 'RDF': 'DLF', 'DLF': 'LUF', 'LUF': 'URF',
-                };
+        turnF: function(is_clockwise) {
+            this.executeTurn('F', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['UFL','UF','URF'], 'Y', is_clockwise ? 90 : -90);
+            this.executeTurn(['RFU','RF','RDF'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['DFR','DF','DLF'], 'Y', is_clockwise ? -90 : 90);
+            this.executeTurn(['LFD','LF','LUF'], 'X', is_clockwise ? 90 : -90);
 
-            this.executeTurn($F, 'Z', direction ? 90 : -90);
-            this.executeTurn($U, 'Y', direction ? 90 : -90);
-            this.executeTurn($R, 'X', direction ? -90 : 90);
-            this.executeTurn($D, 'Y', direction ? -90 : 90);
-            this.executeTurn($L, 'X', direction ? 90 : -90);
-
-            this.updateStickers('F', map, direction);
+            this.updateStickers(is_clockwise, {
+                'F': 'F',
+                'FU': 'FR', 'FR': 'FD', 'FD': 'FL', 'FL': 'FU',
+                'UF': 'RF', 'RF': 'DF', 'DF': 'LF', 'LF': 'UF',
+                'FLU': 'FUR', 'FUR': 'FRD', 'FRD': 'FDL', 'FDL': 'FLU',
+                'UFL': 'RFU', 'RFU': 'DFR', 'DFR': 'LFD', 'LFD': 'UFL',
+                'URF': 'RDF', 'RDF': 'DLF', 'DLF': 'LUF', 'LUF': 'URF',
+            });
         },
 
-        turnR: function(direction) {
-            var $R = this.findStickers('R'),
-                $U = this.findStickers(['URF','UR','UBR']),
-                $B = this.findStickers(['BRU','BR','BDR']),
-                $D = this.findStickers(['DRB','DR','DFR']),
-                $F = this.findStickers(['FRD','FR','FUR']),
-                map = {
-                    'R': 'R',
-                    'RU': 'RB', 'RB': 'RD', 'RD': 'RF', 'RF': 'RU',
-                    'UR': 'BR', 'BR': 'DR', 'DR': 'FR', 'FR': 'UR',
-                    'RFU': 'RUB', 'RUB': 'RBD', 'RBD': 'RDF', 'RDF': 'RFU',
-                    'URF': 'BRU', 'BRU': 'DRB', 'DRB': 'FRD', 'FRD': 'URF',
-                    'UBR': 'BDR', 'BDR': 'DFR', 'DFR': 'FUR', 'FUR': 'UBR',
-                };
+        turnR: function(is_clockwise) {
+            this.executeTurn('R', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['URF','UR','UBR'], 'X', is_clockwise ? 180 : 0);
+            this.executeTurn(['BRU','BR','BDR'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['DRB','DR','DFR'], 'X', is_clockwise ? 0 : -180);
+            this.executeTurn(['FRD','FR','FUR'], 'X', is_clockwise ? 90 : -90);
 
-            this.executeTurn($R, 'Z', direction ? 90 : -90);
-            this.executeTurn($U, 'X', direction ? 180 : 0);
-            this.executeTurn($B, 'X', direction ? -90 : 90);
-            this.executeTurn($D, 'X', direction ? 0 : -180);
-            this.executeTurn($F, 'X', direction ? 90 : -90);
-
-            this.updateStickers('R', map, direction);
+            this.updateStickers(is_clockwise, {
+                'R': 'R',
+                'RU': 'RB', 'RB': 'RD', 'RD': 'RF', 'RF': 'RU',
+                'UR': 'BR', 'BR': 'DR', 'DR': 'FR', 'FR': 'UR',
+                'RFU': 'RUB', 'RUB': 'RBD', 'RBD': 'RDF', 'RDF': 'RFU',
+                'URF': 'BRU', 'BRU': 'DRB', 'DRB': 'FRD', 'FRD': 'URF',
+                'UBR': 'BDR', 'BDR': 'DFR', 'DFR': 'FUR', 'FUR': 'UBR',
+            });
         },
 
-        turnB: function(direction) {
-            var $B = this.findStickers('B'),
-                $U = this.findStickers(['ULB','UB','UBR']),
-                $L = this.findStickers(['LBU','LB','LDB']),
-                $R = this.findStickers(['RUB','RB','RBD']),
-                $D = this.findStickers(['DBL','DB','DRB']),
-                map = {
-                    'B': 'B',
-                    'BU': 'BL', 'BL': 'BD', 'BD': 'BR', 'BR': 'BU',
-                    'UB': 'LB', 'LB': 'DB', 'DB': 'RB', 'RB': 'UB',
-                    'BRU': 'BUL', 'BUL': 'BLD', 'BLD': 'BDR', 'BDR': 'BRU',
-                    'UBR': 'LBU', 'LBU': 'DBL', 'DBL': 'RBD', 'RBD': 'UBR',
-                    'ULB': 'LDB', 'LDB': 'DRB', 'DRB': 'RUB', 'RUB': 'ULB',
-                };
+        turnB: function(is_clockwise) {
+            this.executeTurn('B', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['ULB','UB','UBR'], 'Y', is_clockwise ? -90 : 90);
+            this.executeTurn(['LBU','LB','LDB'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['RUB','RB','RBD'], 'X', is_clockwise ? 90 : -90);
+            this.executeTurn(['DBL','DB','DRB'], 'Y', is_clockwise ? 90 : -90);
 
-            this.executeTurn($B, 'Z', direction ? 90 : -90);
-            this.executeTurn($U, 'Y', direction ? -90 : 90);
-            this.executeTurn($L, 'X', direction ? -90 : 90);
-            this.executeTurn($R, 'X', direction ? 90 : -90);
-            this.executeTurn($D, 'Y', direction ? 90 : -90);
-
-            this.updateStickers('B', map, direction);
+            this.updateStickers(is_clockwise, {
+                'B': 'B',
+                'BU': 'BL', 'BL': 'BD', 'BD': 'BR', 'BR': 'BU',
+                'UB': 'LB', 'LB': 'DB', 'DB': 'RB', 'RB': 'UB',
+                'BRU': 'BUL', 'BUL': 'BLD', 'BLD': 'BDR', 'BDR': 'BRU',
+                'UBR': 'LBU', 'LBU': 'DBL', 'DBL': 'RBD', 'RBD': 'UBR',
+                'ULB': 'LDB', 'LDB': 'DRB', 'DRB': 'RUB', 'RUB': 'ULB',
+            });
         },
 
-        turnD: function(direction) {
-            var $D = this.findStickers('D'),
-                $F = this.findStickers(['FDL','FD','FRD']),
-                $R = this.findStickers(['RDF','RD','RBD']),
-                $B = this.findStickers(['BDR','BD','BLD']),
-                $L = this.findStickers(['LDB','LD','LFD']),
-                map = {
-                    'D': 'D',
-                    'DF': 'DR', 'DR': 'DB', 'DB': 'DL', 'DL': 'DF',
-                    'FD': 'RD', 'RD': 'BD', 'BD': 'LD', 'LD': 'FD',
-                    'DLF': 'DFR', 'DFR': 'DRB', 'DRB': 'DBL', 'DBL': 'DLF',
-                    'FDL': 'RDF', 'RDF': 'BDR', 'BDR': 'LDB', 'LDB': 'FDL',
-                    'FRD': 'RBD', 'RBD': 'BLD', 'BLD': 'LFD', 'LFD': 'FRD',
-                };
+        turnD: function(is_clockwise) {
+            this.executeTurn('D', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn(['FDL','FD','FRD'], 'Y', is_clockwise ? 90 : -90);
+            this.executeTurn(['RDF','RD','RBD'], 'Y', is_clockwise ? 180 : 0);
+            this.executeTurn(['BDR','BD','BLD'], 'Y', is_clockwise ? 270 : 90);
+            this.executeTurn(['LDB','LD','LFD'], 'Y', is_clockwise ? 0 : -180);
 
-            this.executeTurn($D, 'Z', direction ? 90 : -90);
-            this.executeTurn($F, 'Y', direction ? 90 : -90);
-            this.executeTurn($R, 'Y', direction ? 180 : 0);
-            this.executeTurn($B, 'Y', direction ? 270 : 90);
-            this.executeTurn($L, 'Y', direction ? 0 : -180);
-
-            this.updateStickers('D', map, direction);
+            this.updateStickers(is_clockwise, {
+                'D': 'D',
+                'DF': 'DR', 'DR': 'DB', 'DB': 'DL', 'DL': 'DF',
+                'FD': 'RD', 'RD': 'BD', 'BD': 'LD', 'LD': 'FD',
+                'DLF': 'DFR', 'DFR': 'DRB', 'DRB': 'DBL', 'DBL': 'DLF',
+                'FDL': 'RDF', 'RDF': 'BDR', 'BDR': 'LDB', 'LDB': 'FDL',
+                'FRD': 'RBD', 'RBD': 'BLD', 'BLD': 'LFD', 'LFD': 'FRD',
+            });
         },
 
-        turnM: function(direction) {
-            var $U = this.findStickers(['UB','U','UF']),
-                $F = this.findStickers(['FU','F','FD']),
-                $D = this.findStickers(['DF','D','DB']),
-                $B = this.findStickers(['BD','B','BU']),
-                map = {
-                    'U': 'F', 'F': 'D', 'D': 'B', 'B': 'U',
-                    'UB': 'FU', 'FU': 'DF', 'DF': 'BD', 'BD': 'UB',
-                    'UF': 'FD', 'FD': 'DB', 'DB': 'BU', 'BU': 'UF',
-                };
+        turnM: function(is_clockwise) {
+            this.executeTurn(['UB','U','UF'], 'X', is_clockwise ? 0 : 180);
+            this.executeTurn(['FU','F','FD'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['DF','D','DB'], 'X', is_clockwise ? -180 : 0);
+            this.executeTurn(['BD','B','BU'], 'X', is_clockwise ? 90 : -90);
 
-            this.executeTurn($U, 'X', direction ? 0 : 180);
-            this.executeTurn($F, 'X', direction ? -90 : 90);
-            this.executeTurn($D, 'X', direction ? -180 : 0);
-            this.executeTurn($B, 'X', direction ? 90 : -90);
-
-            this.updateStickers('D', map, direction);
+            this.updateStickers(is_clockwise, {
+                'U': 'F', 'F': 'D', 'D': 'B', 'B': 'U',
+                'UB': 'FU', 'FU': 'DF', 'DF': 'BD', 'BD': 'UB',
+                'UF': 'FD', 'FD': 'DB', 'DB': 'BU', 'BU': 'UF',
+            });
         },
 
-        turnE: function(direction) {
-            var $L = this.findStickers(['LB','L','LF']),
-                $F = this.findStickers(['FL','F','FR']),
-                $R = this.findStickers(['RF','R','RB']),
-                $B = this.findStickers(['BR','B','BL']),
-                map = {
-                    'L': 'F', 'F': 'R', 'R': 'B', 'B': 'L',
-                    'LB': 'FL', 'FL': 'RF', 'RF': 'BR', 'BR': 'LB',
-                    'LF': 'FR', 'FR': 'RB', 'RB': 'BL', 'BL': 'LF',
-                };
+        turnE: function(is_clockwise) {
+            this.executeTurn(['LB','L','LF'], 'Y', is_clockwise ? 0 : -180);
+            this.executeTurn(['FL','F','FR'], 'Y', is_clockwise ? 90 : -90);
+            this.executeTurn(['RF','R','RB'], 'Y', is_clockwise ? 180 : 0);
+            this.executeTurn(['BR','B','BL'], 'Y', is_clockwise ? 270 : 90);
 
-            this.executeTurn($L, 'Y', direction ? 0 : -180);
-            this.executeTurn($F, 'Y', direction ? 90 : -90);
-            this.executeTurn($R, 'Y', direction ? 180 : 0);
-            this.executeTurn($B, 'Y', direction ? 270 : 90);
-
-            this.updateStickers('L', map, direction);
+            this.updateStickers(is_clockwise, {
+                'L': 'F', 'F': 'R', 'R': 'B', 'B': 'L',
+                'LB': 'FL', 'FL': 'RF', 'RF': 'BR', 'BR': 'LB',
+                'LF': 'FR', 'FR': 'RB', 'RB': 'BL', 'BL': 'LF',
+            });
         },
 
-        turnS: function(direction) {
-            var $U = this.findStickers(['UL', 'U', 'UR']),
-                $R = this.findStickers(['RU', 'R', 'RD']),
-                $D = this.findStickers(['DR', 'D', 'DL']),
-                $L = this.findStickers(['LD', 'L', 'LU']),
-                map = {
-                    'U': 'R', 'R': 'D', 'D': 'L', 'L': 'U',
-                    'UL': 'RU', 'RU': 'DR', 'DR': 'LD', 'LD': 'UL',
-                    'UR': 'RD', 'RD': 'DL', 'DL': 'LU', 'LU': 'UR',
-                };
+        turnS: function(is_clockwise) {
+            this.executeTurn(['UL', 'U', 'UR'], 'Y', is_clockwise ? 90 : -90);
+            this.executeTurn(['RU', 'R', 'RD'], 'X', is_clockwise ? -90 : 90);
+            this.executeTurn(['DR', 'D', 'DL'], 'Y', is_clockwise ? -90 : 90);
+            this.executeTurn(['LD', 'L', 'LU'], 'X', is_clockwise ? 90 : -90);
 
-            this.executeTurn($U, 'Y', direction ? 90 : -90);
-            this.executeTurn($R, 'X', direction ? -90 : 90);
-            this.executeTurn($D, 'Y', direction ? -90 : 90);
-            this.executeTurn($L, 'X', direction ? 90 : -90);
-
-            this.updateStickers('U', map, direction);
+            this.updateStickers(is_clockwise, {
+                'U': 'R', 'R': 'D', 'D': 'L', 'L': 'U',
+                'UL': 'RU', 'RU': 'DR', 'DR': 'LD', 'LD': 'UL',
+                'UR': 'RD', 'RD': 'DL', 'DL': 'LU', 'LU': 'UR',
+            });
         },
 
-        // The X, Y, and Z methods turn the entire cube, and they function
-        // exactly the same as slice turns.
-        turnX: function(direction) {
-            var faces = this.findAllFaces(),
-                map = {
-                    'L': 'L', 'R': 'R',
-                    'F': 'U', 'U': 'B', 'B': 'D', 'D': 'F',
-                    'LF': 'LU', 'LD': 'LF', 'LB': 'LD', 'LU': 'LB',
-                    'FL': 'UL', 'DL': 'FL', 'BL': 'DL', 'UL': 'BL',
-                    'UB': 'BD', 'BD': 'DF', 'DF': 'FU', 'FU': 'UB',
-                    'UF': 'BU', 'BU': 'DB', 'DB': 'FD', 'FD': 'UF',
-                    'RU': 'RB', 'RB': 'RD', 'RD': 'RF', 'RF': 'RU',
-                    'UR': 'BR', 'BR': 'DR', 'DR': 'FR', 'FR': 'UR',
-                    'LUF': 'LBU', 'LFD': 'LUF', 'LDB': 'LFD', 'LBU': 'LDB',
-                    'FDL': 'UFL', 'DBL': 'FDL', 'BUL': 'DBL', 'UFL': 'BUL',
-                    'FLU': 'ULB', 'DLF': 'FLU', 'BLD': 'DLF', 'ULB': 'BLD',
-                    'RFU': 'RUB', 'RUB': 'RBD', 'RBD': 'RDF', 'RDF': 'RFU',
-                    'URF': 'BRU', 'BRU': 'DRB', 'DRB': 'FRD', 'FRD': 'URF',
-                    'UBR': 'BDR', 'BDR': 'DFR', 'DFR': 'FUR', 'FUR': 'UBR',
-                };
+        turnX: function(is_clockwise) {
+            this.executeTurn('U', 'X', is_clockwise ? 180 : 0);
+            this.executeTurn('L', 'Z', is_clockwise ? -90 : 90);
+            this.executeTurn('F', 'X', is_clockwise ? 90 : -90);
+            this.executeTurn('R', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn('B', 'X', is_clockwise ? -90 : 90);
+            this.executeTurn('D', 'X', is_clockwise ? 0 : -180);
 
-            this.executeTurn(faces['U'], 'X', direction ? 180 : 0);
-            this.executeTurn(faces['L'], 'Z', direction ? -90 : 90);
-            this.executeTurn(faces['F'], 'X', direction ? 90 : -90);
-            this.executeTurn(faces['R'], 'Z', direction ? 90 : -90);
-            this.executeTurn(faces['B'], 'X', direction ? -90 : 90);
-            this.executeTurn(faces['D'], 'X', direction ? 0 : -180);
-
-            this.updateStickers('U', map, direction);
+            this.updateStickers(is_clockwise, {
+                'L': 'L', 'R': 'R',
+                'F': 'U', 'U': 'B', 'B': 'D', 'D': 'F',
+                'LF': 'LU', 'LD': 'LF', 'LB': 'LD', 'LU': 'LB',
+                'FL': 'UL', 'DL': 'FL', 'BL': 'DL', 'UL': 'BL',
+                'UB': 'BD', 'BD': 'DF', 'DF': 'FU', 'FU': 'UB',
+                'UF': 'BU', 'BU': 'DB', 'DB': 'FD', 'FD': 'UF',
+                'RU': 'RB', 'RB': 'RD', 'RD': 'RF', 'RF': 'RU',
+                'UR': 'BR', 'BR': 'DR', 'DR': 'FR', 'FR': 'UR',
+                'LUF': 'LBU', 'LFD': 'LUF', 'LDB': 'LFD', 'LBU': 'LDB',
+                'FDL': 'UFL', 'DBL': 'FDL', 'BUL': 'DBL', 'UFL': 'BUL',
+                'FLU': 'ULB', 'DLF': 'FLU', 'BLD': 'DLF', 'ULB': 'BLD',
+                'RFU': 'RUB', 'RUB': 'RBD', 'RBD': 'RDF', 'RDF': 'RFU',
+                'URF': 'BRU', 'BRU': 'DRB', 'DRB': 'FRD', 'FRD': 'URF',
+                'UBR': 'BDR', 'BDR': 'DFR', 'DFR': 'FUR', 'FUR': 'UBR',
+            });
         },
 
-        turnY: function(direction) {
-            var faces = this.findAllFaces(),
-                map = {
-                    'U': 'U', 'D': 'D',
-                    'F': 'L', 'L': 'B', 'B': 'R', 'R': 'F',
-                    'UB': 'UR', 'UR': 'UF', 'UF': 'UL', 'UL': 'UB',
-                    'BU': 'RU', 'RU': 'FU', 'FU': 'LU', 'LU': 'BU',
-                    'FL': 'LB', 'LB': 'BR', 'BR': 'RF', 'RF': 'FL',
-                    'FR': 'LF', 'LF': 'BL', 'BL': 'RB', 'RB': 'FR',
-                    'DR': 'DF', 'DB': 'DR', 'DL': 'DB', 'DF': 'DL',
-                    'RD': 'FD', 'BD': 'RD', 'LD': 'BD', 'FD': 'LD',
-                    'ULB': 'UBR', 'UBR': 'URF', 'URF': 'UFL', 'UFL': 'ULB',
-                    'BUL': 'RUB', 'RUB': 'FUR', 'FUR': 'LUF', 'LUF': 'BUL',
-                    'BRU': 'RFU', 'RFU': 'FLU', 'FLU': 'LBU', 'LBU': 'BRU',
-                    'DFR': 'DLF', 'DRB': 'DFR', 'DBL': 'DRB', 'DLF': 'DBL',
-                    'RDF': 'FDL', 'BDR': 'RDF', 'LDB': 'BDR', 'FDL': 'LDB',
-                    'RBD': 'FRD', 'BLD': 'RBD', 'LFD': 'BLD', 'FRD': 'LFD',
-                };
+        turnY: function(is_clockwise) {
+            this.executeTurn('U', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn('L', 'Y', is_clockwise ? -180 : 0);
+            this.executeTurn('F', 'Y', is_clockwise ? -90 : 90);
+            this.executeTurn('R', 'Y', is_clockwise ? 0 : 180);
+            this.executeTurn('B', 'Y', is_clockwise ? 90 : 270);
+            this.executeTurn('D', 'Z', is_clockwise ? -90 : 90);
 
-            this.executeTurn(faces['U'], 'Z', direction ? 90 : -90);
-            this.executeTurn(faces['L'], 'Y', direction ? -180 : 0);
-            this.executeTurn(faces['F'], 'Y', direction ? -90 : 90);
-            this.executeTurn(faces['R'], 'Y', direction ? 0 : 180);
-            this.executeTurn(faces['B'], 'Y', direction ? 90 : 270);
-            this.executeTurn(faces['D'], 'Z', direction ? -90 : 90);
-
-            this.updateStickers('U', map, direction);
+            this.updateStickers(is_clockwise, {
+                'U': 'U', 'D': 'D',
+                'F': 'L', 'L': 'B', 'B': 'R', 'R': 'F',
+                'UB': 'UR', 'UR': 'UF', 'UF': 'UL', 'UL': 'UB',
+                'BU': 'RU', 'RU': 'FU', 'FU': 'LU', 'LU': 'BU',
+                'FL': 'LB', 'LB': 'BR', 'BR': 'RF', 'RF': 'FL',
+                'FR': 'LF', 'LF': 'BL', 'BL': 'RB', 'RB': 'FR',
+                'DR': 'DF', 'DB': 'DR', 'DL': 'DB', 'DF': 'DL',
+                'RD': 'FD', 'BD': 'RD', 'LD': 'BD', 'FD': 'LD',
+                'ULB': 'UBR', 'UBR': 'URF', 'URF': 'UFL', 'UFL': 'ULB',
+                'BUL': 'RUB', 'RUB': 'FUR', 'FUR': 'LUF', 'LUF': 'BUL',
+                'BRU': 'RFU', 'RFU': 'FLU', 'FLU': 'LBU', 'LBU': 'BRU',
+                'DFR': 'DLF', 'DRB': 'DFR', 'DBL': 'DRB', 'DLF': 'DBL',
+                'RDF': 'FDL', 'BDR': 'RDF', 'LDB': 'BDR', 'FDL': 'LDB',
+                'RBD': 'FRD', 'BLD': 'RBD', 'LFD': 'BLD', 'FRD': 'LFD',
+            });
         },
 
-        turnZ: function(direction) {
-            var faces = this.findAllFaces(),
-                map = {
-                    'F': 'F', 'B': 'B',
-                    'U': 'R', 'R': 'D', 'D': 'L', 'L': 'U',
-                    'UL': 'RU', 'RU': 'DR', 'DR': 'LD', 'LD': 'UL',
-                    'UR': 'RD', 'RD': 'DL', 'DL': 'LU', 'LU': 'UR',
+        turnZ: function(is_clockwise) {
+            this.executeTurn('U', 'Y', is_clockwise ? 90 : -90);
+            this.executeTurn('L', 'X', is_clockwise ? 90 : -90);
+            this.executeTurn('F', 'Z', is_clockwise ? 90 : -90);
+            this.executeTurn('R', 'X', is_clockwise ? -90 : 90);
+            this.executeTurn('B', 'Z', is_clockwise ? -90 : 90);
+            this.executeTurn('D', 'Y', is_clockwise ? -90 : 90);
 
-                    'FU': 'FR', 'FR': 'FD', 'FD': 'FL', 'FL': 'FU',
-                    'UF': 'RF', 'RF': 'DF', 'DF': 'LF', 'LF': 'UF',
-                    'FLU': 'FUR', 'FUR': 'FRD', 'FRD': 'FDL', 'FDL': 'FLU',
-                    'UFL': 'RFU', 'RFU': 'DFR', 'DFR': 'LFD', 'LFD': 'UFL',
-                    'URF': 'RDF', 'RDF': 'DLF', 'DLF': 'LUF', 'LUF': 'URF',
-
-                    'BL': 'BU', 'BU': 'BR', 'BR': 'BD', 'BD': 'BL',
-                    'UB': 'RB', 'RB': 'DB', 'DB': 'LB', 'LB': 'UB',
-                    'BUL': 'BRU', 'BLD': 'BUL', 'BDR': 'BLD', 'BRU': 'BDR',
-                    'LBU': 'UBR', 'DBL': 'LBU', 'RBD': 'DBL', 'UBR': 'RBD',
-                    'LDB': 'ULB', 'DRB': 'LDB', 'RUB': 'DRB', 'ULB': 'RUB',
-                };
-
-            this.executeTurn(faces['U'], 'Y', direction ? 90 : -90);
-            this.executeTurn(faces['L'], 'X', direction ? 90 : -90);
-            this.executeTurn(faces['F'], 'Z', direction ? 90 : -90);
-            this.executeTurn(faces['R'], 'X', direction ? -90 : 90);
-            this.executeTurn(faces['B'], 'Z', direction ? -90 : 90);
-            this.executeTurn(faces['D'], 'Y', direction ? -90 : 90);
-
-            this.updateStickers('F', map, direction);
+            this.updateStickers(is_clockwise, {
+                'F': 'F', 'B': 'B',
+                'U': 'R', 'R': 'D', 'D': 'L', 'L': 'U',
+                'UL': 'RU', 'RU': 'DR', 'DR': 'LD', 'LD': 'UL',
+                'UR': 'RD', 'RD': 'DL', 'DL': 'LU', 'LU': 'UR',
+                'FU': 'FR', 'FR': 'FD', 'FD': 'FL', 'FL': 'FU',
+                'UF': 'RF', 'RF': 'DF', 'DF': 'LF', 'LF': 'UF',
+                'FLU': 'FUR', 'FUR': 'FRD', 'FRD': 'FDL', 'FDL': 'FLU',
+                'UFL': 'RFU', 'RFU': 'DFR', 'DFR': 'LFD', 'LFD': 'UFL',
+                'URF': 'RDF', 'RDF': 'DLF', 'DLF': 'LUF', 'LUF': 'URF',
+                'BL': 'BU', 'BU': 'BR', 'BR': 'BD', 'BD': 'BL',
+                'UB': 'RB', 'RB': 'DB', 'DB': 'LB', 'LB': 'UB',
+                'BUL': 'BRU', 'BLD': 'BUL', 'BDR': 'BLD', 'BRU': 'BDR',
+                'LBU': 'UBR', 'DBL': 'LBU', 'RBD': 'DBL', 'UBR': 'RBD',
+                'LDB': 'ULB', 'DRB': 'LDB', 'RUB': 'DRB', 'ULB': 'RUB',
+            });
         },
     };
 
